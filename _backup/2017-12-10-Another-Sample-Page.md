@@ -1,6 +1,6 @@
 ---
-title: Sample Page
-published: true
+title: Another Sample Page
+published: false
 ---
 
 Text can be **bold**, _italic_, ~~strikethrough~~ or `keyword`.

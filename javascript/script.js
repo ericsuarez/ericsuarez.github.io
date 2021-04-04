@@ -9,7 +9,7 @@ typewriter
   .pauseFor(1500)
   .deleteAll()
   .typeString('eric.ramos@github:~$ sudo su')
-  .pauseFor(1500)
+  .pauseFor(300)
   .deleteChars(10)
   .typeString('#')
   .start();
