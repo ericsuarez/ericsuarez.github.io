@@ -14,11 +14,13 @@ $blockquote-border: $dove-grey !default;
 body {
   margin: 0;
   padding: 0;
-  background: $body-background url("../assets/bkg.png") 0 0;
   color: $body-foreground;
+  background: $body-background url("../assets/prueba.jpg") 0 0;
+  background-size: cover;
   font-size: 16px;
   line-height: 1.5;
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
+  z-index: 1;
 }
 
 /* General & 'Reset' Stuff */
@@ -27,6 +29,10 @@ body {
   width: 90%;
   max-width: 1000px;
   margin: 0 auto;
+  padding: 7px;
+  box-shadow:  3px 8px 15px #969696;
+  border-radius: 9px;
+  background-color: rgb(77, 56 ,90) ;
 }
 
 
@@ -50,7 +56,7 @@ li {
 */
 
 header {
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(26, 25, 25, 0.3);
   border-bottom: 1px dashed $conifer; //header;
   padding: 20px;
   margin: 0 0 40px 0;
@@ -87,6 +93,21 @@ header {
     transform: scale(1.5);
   }
 }
+.header-image{
+
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  transition: 1s ease-in-out;
+
+  &:hover{
+    transform: rotate(1082deg);
+  }
+
+
+}
+
+
 
 header h1 {
   font-size: 24px;
