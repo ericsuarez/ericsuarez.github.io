@@ -32,7 +32,7 @@ body {
   padding: 7px;
   box-shadow:  3px 8px 15px #969696;
   border-radius: 9px;
-  background-color: rgb(77, 56 ,90) ;
+  background-color: rgba(77, 56 ,90, 0.3) ;
 }
 
 
@@ -47,6 +47,7 @@ h1, h2, h3, h4, h5, h6 {
 
 li {
   line-height: 1.4 ;
+  margin-bottom: 50px;
 }
 
 /* Header, <header>
@@ -316,4 +317,22 @@ a:active, a:focus {
 
 #wrapper {
   min-height: calc(100vh - 100px);
+}
+
+
+
+article {
+  
+  p{
+
+  }
+  img{
+    display: block;
+    width: 70%;
+    height: 40%;
+    border-radius: 10%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+
 }
