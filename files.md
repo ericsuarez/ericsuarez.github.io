@@ -4,35 +4,11 @@ title: Files
 ---
 
 <section>
-  {% if site.posts[0] %}
-
-    {% capture currentyear %}{{ 'now' | date: "%Y" }}{% endcapture %}
-    {% capture firstpostyear %}{{ site.posts[0].date | date: '%Y' }}{% endcapture %}
-    {% if currentyear == firstpostyear %}
-        <h3>Files</h3>
-    {% else %}  
-        <h3>{{ firstpostyear }}</h3>
-    {% endif %}
-
-    {%for post in site.posts %}
-      {% unless post.next %}
-        <ul>
-      {% else %}
-        {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-        {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-        {% if year != nyear %}
-          </ul>
-          <h3>{{ post.date | date: '%Y' }}</h3>
-          <ul>
-        {% endif %}
-      {% endunless %}
-        <li><time>{{ post.date | date:"%d %b" }} - </time>
-          <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-            {{ post.title }}
-          </a>
-        </li>
-    {% endfor %}
-    </ul>
-
-  {% endif %}
+  {% for file in site.static_files %}
+    {% if file.extname == ".bat" -%}
+      <ul>
+        <li> {{ file.path }} <a href="https://github.com/ericsuarez/tree/main{{file.path}}">  [{{ file.path }}]({{ site.baseurl }}{{ file.path }}) </a></li>
+      </ul>
+    {%- endif %}
+  {% endfor %}
 </section>

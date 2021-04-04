@@ -30,3 +30,6 @@ plugins:
 # Custom variables
 owner : "EricRamos"
 year : "2020"
+
+collections:
+- sites
