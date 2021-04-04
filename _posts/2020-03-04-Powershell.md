@@ -8,7 +8,7 @@ published: true
 
 
 
-#### Comandos prácticos de ayuda
+### Comandos prácticos de ayuda
 Podemos actualizar la ayuda con Update-Help. Para mostrar ejemplos Get-Help Get-Service -Examples. Si escribimos el comando nos aparece una ventana donde podemos buscar
 ```powershell
 Get-Help [comando] ayuda
@@ -16,7 +16,7 @@ Get-Command -Name *[Comando]*
 Show-Command Get-Service # (Con formulario, muy bueno)
 ```
 
-#### Comandos prácticos formatear salida
+### Comandos prácticos formatear salida
 ```powershell
 Pipe |
 Format-*
@@ -36,7 +36,7 @@ Get-Process | Out-File -FilePath C:\Users\ericramos\Desktop\prueba.txt (a archiv
 Out-Null # (desaparecer salida de comando)
 ```
 
-#### Operadores
+### Operadores
 
 ```powershell
 Sumas,restas,etc (+,-,%,*)
@@ -61,7 +61,7 @@ Get-Help Operators # (ficheros con help)
 Get-Help about_Arithmetic_Operators
 ```
 
-#### Operadores avanzados
+### Operadores avanzados
 
 ```powershell
 -and -or -xor -not !
