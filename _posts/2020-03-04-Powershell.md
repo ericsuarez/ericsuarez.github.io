@@ -37,6 +37,7 @@ Out-Null # (desaparecer salida de comando)
 ```
 
 #### Operadores
+
 ```powershell
 Sumas,restas,etc (+,-,%,*)
 # Asignación con dolar -> $var = 5
@@ -61,6 +62,7 @@ Get-Help about_Arithmetic_Operators
 ```
 
 #### Operadores avanzados
+
 ```powershell
 -and -or -xor -not !
 -split -join

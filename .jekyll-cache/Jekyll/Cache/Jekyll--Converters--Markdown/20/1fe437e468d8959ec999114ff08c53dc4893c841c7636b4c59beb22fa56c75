@@ -1,8 +1,0 @@
-I"-<p><img src="./../assets/PowerShell.jpg" alt="Powershell" />
-<strong><em>Cheatsheet de todo lo aprendido en PowerShell</em></strong></p>
-
-<h2 id="basics">Basics</h2>
-<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Get-Command</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="o">*</span><span class="p">[</span><span class="n">Comando</span><span class="p">]</span><span class="o">*</span><span class="w">
-</span></code></pre></div></div>
-
-:ET

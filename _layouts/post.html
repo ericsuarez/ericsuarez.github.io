@@ -1,9 +1,11 @@
 ---
-layout: default
+layout: default2
 ---
 
 <article>
-  <h2>{{ page.title }}</h2>
-  <time datetime="{{ page.date | date_to_xmlschema }}" class="by-line">{{ page.date | date_to_string }}</time>
-  {{ content }}
+  <div class="article-title">
+    <h2>{{ page.title }}</h2>
+    <time datetime="{{ page.date | date_to_xmlschema }}" class="by-line">{{ page.date | date_to_string }}</time>
+  </div>
+   {{ content }}
 </article>

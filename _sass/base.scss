@@ -35,6 +35,42 @@ body {
   background-color: rgba(77, 56 ,90, 0.3) ;
 }
 
+.container-articles {
+  width: 80%;
+  padding: 20%;
+  margin: 0 auto;
+  padding: 7px;
+  background-color: white;
+  color: black;
+  .article-title{
+    h2{
+      font-size: 40px  !important;
+      font-weight: bold;
+    }
+    time{
+      font-size: 30px;
+    }
+    text-align: center;
+    font-weight: bold;
+  }
+  h1,h2,h3,h4,h5{
+    color: black;
+  }
+
+  article {
+    color: black;
+    padding: 3%;
+    img{
+      display: block;
+      width: 50%;
+      height: 30%;
+      border-radius: 10%;
+      margin: auto;
+      margin-bottom: 50px;
+    }
+
+  }
+}
 
 section {
   display: block;
@@ -320,19 +356,3 @@ a:active, a:focus {
 }
 
 
-
-article {
-  
-  p{
-
-  }
-  img{
-    display: block;
-    width: 70%;
-    height: 40%;
-    border-radius: 10%;
-    margin: auto;
-    margin-bottom: 30px;
-  }
-
-}
