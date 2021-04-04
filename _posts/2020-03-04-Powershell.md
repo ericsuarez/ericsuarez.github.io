@@ -9,9 +9,9 @@ published: true
 
 
 ### Comandos prácticos de ayuda
-Podemos actualizar la ayuda con Update-Help. Para mostrar ejemplos Get-Help Get-Service -Examples. Si escribimos el comando nos aparece una ventana donde podemos buscar
+Podemos actualizar la ayuda con Update-Help. Para mostrar ejemplos podemos usar este commando Get-Help [Get-Service] -Examples. Si escribimos el comando nos aparece una ventana donde podemos buscar. Más comandos que podemos encontrar son:
 ```powershell
-Get-Help [comando] ayuda
+Get-Help [comando] # ayuda
 Get-Command -Name *[Comando]*
 Show-Command Get-Service # (Con formulario, muy bueno)
 ```

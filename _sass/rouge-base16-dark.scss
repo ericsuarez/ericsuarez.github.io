@@ -23,6 +23,7 @@
   $string-escape: $potters-clay !default;
   $deleted: $apple-blossom !default;
   $header: $hippie-blue !default;
+  $names: green !default;
 
   color: $plaintext;
 
@@ -83,5 +84,8 @@
   }
   .ss {
     color: $string;
+  }
+  .n{
+    color: $names;
   }
 }
