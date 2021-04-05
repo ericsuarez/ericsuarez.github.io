@@ -1,438 +1,177 @@
 ---
-title: Powershell - RAW
+title: Docker - RAW
 published: true
 ---
 
-![Powershell](./../assets/PowerShell.jpg)
-***Cheatsheet de todo lo aprendido en PowerShell***
+![Powershell](./../assets/docker.jpg)
+***Cheatsheet de todo lo aprendido en Docker***
 
 
 
-### Comandos prácticos de ayuda
-Podemos actualizar la ayuda con Update-Help. Para mostrar ejemplos podemos usar este commando Get-Help [Get-Service] -Examples. Si escribimos el comando nos aparece una ventana donde podemos buscar. Más comandos que podemos encontrar son:
-```powershell
-Get-Help [comando] # ayuda
-Get-Command -Name *[Comando]*
-Show-Command Get-Service # (Con formulario, muy bueno)
+### ¿Qué es Docker?
+Permite automatizar despliegue de aplicaciones dentro de espacios virtualizados
+
+***Imagen*** -> plantilla para la creación de contenedores
+
+***Contenedores*** -> Espacio auto-contenido incluye necesario para la ejecución de aplicacioens
+
+Es similar a máquina virtual 
+
+Imagen plano o maqueta del edificio y el contenedor es el edificio en sí
+
+La gestión de imágenes y contenedores las hace dockerd. Un servicio
+
+Usamos el cliente para conectarnos con el servicio
+
+Se pueden gestionar distintas redes y clusters de contenedores y volúmenes.
+
+### Introducción
+
+Salomón Hykes en dotCloud ->integración continúa. Lo sacó a software libre en el 2013
+
+***Proyecto insignia en Red Hub. ***
+
+***Propone seguir un modelo fijo*** -> la forma en la que se define
+
+***Integración continua*** -> CI, entrega continua -> CD 
+
+#### Diferencia entre VM y Contenedores
+Los contenedores no tienen Hypervisor ni guest OS. El motor de docker usa los servicios del SO fuente independizando los contenedores.
+
+
+### Instalación
+
+Versión comunitaria 
+Versión empresarial
+
+Documentación muy bien hecha
+
+En cuanto se termine tenemos el servicio y el cliente de docker en la máquina
+
+systemctl status docker.service  -> comando gestionar servicios
+
+Docker -v vemos el cliente
+
+Docker -h muestra los comandos disponibles
+
+### Servicio dockerd
+
+systemctl -> interfaz de system.d (mecanismo reciente que gestiona muchas cosas del so) argumentos. STATUS, START, STOP,RESTART
+
+comandos client -> inspect, kill, load
+
+Docker ps -> para ver los contenedores que se encuentran en ejecución
+
+El cliente se conecta con el servicio de docker
+
+
+### Primer contenedor
+
+```bash
+Docker run  # lanza comando sobre un nuevo contenedor que se crea al instante
 ```
+Todos los comandos tienen el --h
 
-### Comandos prácticos formatear salida
+docker run hello-world -> primero lo busca localmente y después si no lo encuentra lo busca y lo descarga desde docker-hub
 
-Pipe | <br/>
-Format-* <br/>
-out-*
+si no ponemos nada descargar el latest 
 
-```powershell
+nifty_mclaren 
+loving_diffie <3 lovid
 
-Get-Process -Name *notepad* | Stop-Process
-Get-Service | more
-Get-Service | Where-Object {$_.Status -eq "Running"} | more
-Get-Command -Verb Format # (Formatear salida)
-Get-Service | Format-Table * | more # (muchas mas cosas)
+```bash
+docker ps # muestra los contenedores pero este no sale porque no es interactivo sino que se ejecuta y ya y docker ps -a si que lo muestra 
 
-
-Get-ChildItem | more (alias dir)
-Get-ChildItem | Format-Table * | more # (muchas mas cosas)
-Get-ChildItem | Format-Table Name,Length | more # (Filtrar por atributos)
-Get-ChildItem | Format-List * | more # (Formato lista muy interesante pantallas pequeñas)
-
-
-Get-Command -Verb Out
-Get-Process | out-gridview #~(muy interesante permite filtros)
-Get-Process | Out-File -FilePath C:\Users\ericramos\Desktop\prueba.txt # (a archivo)
-Out-Null # (desaparecer salida de comando)
-```
-
-### Operadores
-
-Sumas,restas,etc (+,-,%,*) <br/>
-Asignación con dolar -> $var = 5 <br/>
-+= Incrementar <br/>
--= Decrementar <br/>
-
-```powershell
-# Comparar
-
-3 -eq 4 # (igual)
-3 -lt 4 # (menor que)
-3 -gt 4 # (mayor que)
-
-# Contenido
-
-"Shell" -in "Power","Shell","curso"
-4 -in 3,4,5,6
-"curso de powershell" -match "Power"
-"curso de powershell" -replace "powershell", "pentesting"
-
-# Redirección
-
-"Esta es la primera frase" > frases.txt
-"Esta es la segunda frase" >> frases.txt es igual a "Esta es la tercera frase" | out-file -Filepath .\frases.txt -Append
-notepad archivo # Te lo abre
-
-Get-Process NOEXISTE 2> Noexiste.txt
-Get-Help Operators # (ficheros con help)
-Get-Help about_Arithmetic_Operators
-```
-
-### Operadores avanzados
-
-```powershell
--and -or -xor -not !
--split -join
--is -isnot -as
-
-(3 -le 4) -and (5 -eq 7) # (dos condiciones)
-(3 -le 4) -or (5 -eq 7)  # (solo una)
-(3 -le 4) -xor (5 -eq 7) # (solo cuando una sea cierta)
-
-"este es un curso de pentesting" -split " " # (separar)
-"este es un curso de pentesting","prueba " -join " " # (unir)
-"este es un curso","de pentesting" -join " de " # (unir)
-
-3 -is "int" # Saber tipo
-3 -is "float"
-"hola" -is "string"
-"3" + 4 # (34 concatena)
-4 + "3" (suma)
-
-" hola " + " mundo " # (concatena)
-0x12 #(hace conversión a decimal)
-0x12 -as "int"
-```
-
-### Tipos
-```powershell
-$valor = "casa"
-"Esta es mi valor $valor" # (sustituye valor)
-'Esta es mi valor $valor' # (no sustituye)
-```
-
-### Arrays
-```powershell
-$variable = 3.2 + 5
-$variable.GetType() # (Saber tipo)
-[int]$variable # (convertir variable a otro tipo)
-[int]$variable2 = 4.2 + 8.4 # (toma valor entero redondea)
-
-$servicios = Get-Service
-$servicios[0] # (sacar primer elemento)
-$servicios.Length # (longitud del array)
-$servicios.GetType() # (tipo de elemento)
-
-$Lista = 1,2,3,4,5 # (crear array)
-$lista = 1, "gola", 3
-$a = @() # (crear un array vacio)
-```
-
-### Sentencias condicionales
-
-if,elseif,else
-
-```powershell
-
-if($Variable -gt 7){
-"hola"
-}elseif($variable -lt 9){
-}else{
-}
-
-#  .ps1 (EXTENSIONNN)
-Set-ExecutionPolicy Unrestricted
-switch(soporta -Exact -Wildcard -Regex) # incluso procesar archivos con -file
-
-$dias = "miercoles"
-
-switch($dias){
-    "lunes"{"hoy es lunes"}
-    "martes"{"hoy es martes"}
-    Default{"pringao"}
-}
-
-## WILDCARD CON PATRONES
-$dias = "sloja"
-switch -Wildcard ($dias){
-    "a*"{"hoy es lunes"}
-    "b*"{"hoy es martes"}
-    Default{"pringao"}
-}
-
-# Buscar las lineas que tienen lo que nos interesa
-switch -Regex -File C:\Users\ericramos\Desktop\prueba.txt{
-    "Alerta" {$_}
-}
-switch -Regex -File C:\Users\ericramos\Desktop\prueba.txt{
-    "Alerta" {$_ >> C:\Users\ericramos\Desktop\suso.txt}
-}
-```
-
-### Bucles
-
-```powershell
-while(){}
-do{} while()
-do{} until()
-for(;;){}
-foreach(in){}
-
-$contador = 5
-while($contador -gt 1){
-    "Se ha ejecutado $contador veces"
-    $contador--
-}
-
-$contador = 5
-do{
-    "Se ha ejecutado $contador veces"
-    $contador--
-}while($contador -gt 1)
-
-$procesos = Get-Process
-foreach($process in $procesos){
-    "El nombre del proceso es " + $process.Name
-}
-
-# SUPER UTILL
-Get-Process | ForEach-Object {$_.Name}
+docker run busybox # (otro)
+docker run ubuntu
 
 ```
 
-### Scripting
-```powershell
-Get-Help about_execution_policies
-Get-ExecutionPolicy
-Set-ExecutionPolicy RemoteSign
-```
-
-### Funciones 
-```powershell
-function Obtener-Proceso {
-    $procesos = Get-Process
-    foreach($process in $procesos){
-        "El nombre del proceso es " + $process.Name
-    }
-}
-Obtener-Proceso
+Estos comandos no hacen mucho
 
 
-# PASANDO ARGS
-function Obtener-Parametros {
-    "Los parametros que has pasado son " + $args
-}
-Obtener-Parametros 1 2 3 Hola
-
-function Obtener-Parametros {
-    "Los parametros que has pasado son " + $args
-"   El primer parametro es " + $args[0]
-}
-Obtener-Parametros 1 2 3 Hola
 
 
-# Recurriendo parametros
-function Obtener-Parametros {
-    "Los parametros que has pasado son " + $args
-    foreach($i in $args){
-        "Los parametros son " + $args[$i]
-    }
-}
+### Comandos listado Contenedores
 
-Obtener-Parametros 1 2 3 Hola
-# Obteniendo parametritos
-function Obtener-Parametros($parametro1,$parametro2){
-    "Los parametros que has pasado son " + $parametro1 + " y " + $parametro2
-}
-Obtener-Parametros 1 2
+```bash
+docker ps -a -q # (Solo muestra los identificadores)
+docker ps -a -s # (tamaño)
 
-function Obtener-Parametros($parametro1,$parametro2){
-    "Los parametros que has pasado son " + $parametro1 + " y " + $parametro2
-}
-Obtener-Parametros -parametro1 1 -parametro2 2
+Con la opción -f # podemos hacer un filtro por lo que queramos casi 
+
+docker ps -f name=_lov
+
+
 ```
 
 
-### Parametros funciones 
-```powershell
-# El tercer parametro
-function mostrar-parametro ($parametro1,$parametro2){
-    "Los parametros son $parametro1 y $parametro2"
-}
-mostrar-parametro 1 2 "Valencia"
-
-function mostrar-parametro ($parametro1,$parametro2){
-    "Los parametros son $parametro1 y $parametro2"
-    "Los parametros adicionales son $args"
-}
-mostrar-parametro 1 2 "Valencia"
-
-function Sumar-Params([int]$para1, [int]$para2){
-    $para1 + $para2
-}
-Sumar-Params 1 2
-
-function Sumar-Params([int]$para1, [int]$para2){
-    $suma = $para1 + $para2
-    $suma
-}
-Sumar-Params 1 "2"
+### Comandos listado Imágenes
 
 
-#Valor por defecto
-function Sumar-Params([int]$para1=5, [int]$para2){
-    $suma = $para1 + $para2
-    $suma
-}
-Sumar-Params -para2 "2"
+```bash
+docker images -a # para verlas todas
+docker images -q # para vert los indentificadores
+docker images ubuntu - > filtra por ubuntu
 
-function Sumar-Params([int]$para1=5, [int]$para2=3){
-    $suma = $para1 + $para2
-    $suma
-}
-Sumar-Params
+docker images --no-trunk  # para ver el hash completo
+
+docker image    # PARA GESTIONAR IMÁGENES NO PARA LISTAR
+
+
+```
+
+### Contenedores interactivos
+
+```bash
+docker run -it # (interactivo y con terminal tipo tty)  
+
+# Se ve que lo último es el comando que queremos ejecutar
+ docker run -it fedora bash
+
+docker start -i # y con los primeros numeros del contenedor podemos interactuar con el 
+
+docker stop # para detener un contenedor
+
+docker run -it -d(BACKGROUND) --name  # para asignarle un nombre
+
+docker run -it -d --name fedoracoretest fedora bash
+
 ```
 
 
-### Variables y funciones
-```powershell
-function Intercambiar-Parametro($a, $b, [switch]$c){
-    $a + $b
-    if($c){
-        $a - $b
-    }
-}
-Intercambiar-Parametro 2 3
+### Borrar contenedores
 
-function Intercambiar-Parametro($a, $b, [switch]$c){
-    $a + $b
-    if($c){
-        $a - $b
-    }
-}
-Intercambiar-Parametro 2 3 -c
+````bash
+docker rm <identificador>
 
-function Function1 ($var = 1){
-    "La variable vale $var"
-}
-function Function2 ($var = 2){
-    "La variable vale $var"
-}
-Function1
-Function2
+docker create # lo creamos pero no lo arrancamos
+ 
+docker create -it ngnix # lo crea pero no lo arranca
 
-#Contextos son de funciones
-function Function1 ($var = 1){
-    "La variable vale $var"
-}
-function Function2 ($var = 2){
-    "La variable vale $var"
-}
-$var = 3
-"la variable aqui vale $var"
-Function1
-Function2
-cd Function:
-```
+docker container # varios comandos, hay algunos que tienen alias 
 
+docker start identificador #  lo lanza (SI PONE UP ESTÁ LEVANTADO)
 
-### Funciones avanzadas 
-```powershell
-function Ver-Eventos{
-    [CmdletBinding()]
-    Param(
-        $NombreLog,
-        $IdenEvento
-    )
-    Get-EventLog -LogName $NombreLog | Where-Object {$_.EventID -eq $IdenEvento} | Select-Object -First 10
-}
-Ver-Eventos -NombreLog Security -IdenEvento 4624
+docker  image save ubuntu -o /home/ubuntuimage.tar # la guarda
 
+docker image rm hello-world:latest
+````
 
-function Ver-Eventos{
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        $NombreLog,
-        $IdenEvento
-    )
-    Get-EventLog -LogName $NombreLog | Where-Object {$_.EventID -eq $IdenEvento} | Select-Object -First 10
-}
+### Comandos útiles
 
+```bash
 
-function Ver-Eventos{
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        $NombreLog,
-        $IdenEvento=4624
-    )   
-    Get-EventLog -LogName $NombreLog | Where-Object {$_.EventID -eq $IdenEvento} | Select-Object -First 10
-}
-Ver-Eventos -NombreLog Security
-Ver-Eventos -IdenEvento 1001
+docker run -d --name testing nginx
+docker logs testing
+docker exec (LANZA COMANDO)
 
-#VALIDARR SET
-function Ver-Eventos{
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        [ValidateSet("Security","Application")]
-        $NombreLog,
-        $IdenEvento=4624
-    )
-    Get-EventLog -LogName $NombreLog | Where-Object {$_.EventID -eq $IdenEvento} | Select-Object -First 10
-}
-Ver-Eventos -NombreLog Suys
+docker exec -it testing bash (Si entramos y ejecutamos cosas nos aparecen en logs)
 
-#PipeLineeeee
-function Ver-Eventos{
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true,ValueFromPipeLine =$true)]
-        [ValidateSet("Security","Application")]
-        $NombreLog,
-        $IdenEvento=4624
-    )
-    Get-EventLog -LogName $NombreLog | Where-Object {$_.EventID -eq $IdenEvento} | Select-Object -First 10
-}
+docker top testing (nos muestra los procesos)
 
-"Application" | Ver-Eventos -NombreLog Suys
-```
+docker stats para ver las estadisticas
 
+docker kill # más similar al stop pero más bruto -> da un código más raro es mejor hacerlo con stop
 
-### Scripts avanzados
-```powershell
-cargar scripts en powershell
-Dot source -> . ./script15.ps1 # (Te lo carga en ambito de powershell)
-```
-
-### Comandos más usados
-```powershell
-get-alias -Definition get-content
-ni -> cre archivo
-Alias like a pro
-Remove-Item alias:\usuarios
-
-New-Alias -name usuario Get-LocalUser
-Get-LocalUser
-Get-LocalUser -Name ERIC| fl
-Get-LocalGroup
-Get-LocalGroup -Name Administradores | fl *
-
-Get-SmbShare -> net share
-Get-Disk -Number 0
-Get-Partition
-Get-NetAdapter
-Get-Process
-Get-Process | Out-GridView
-
-Get-Service
-Get-ScheduledTask | Where-Object {$_.State -eq “Running”}
-Get-ScheduledTask -TaskName reboot*
-(Get-ScheduledTask | Where-Object {$_.TaskName -eq “DCU”}).Triggers
-
-Get-Printer
-Get-PrinterDriver
-Get-EventLog -list -> eventos
-Get-WinEvent -listlog *
-Get-WinEvent -listlog * |Where-Object {$_.Recordcount -gt 0}
-Get-WmiObject -ClassName win32_processor|fl
 ```
