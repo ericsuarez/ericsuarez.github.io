@@ -1,0 +1,156 @@
+I"<<p><img src="./../assets/docker.jpg" alt="Powershell" />
+<strong><em>Cheatsheet de todo lo aprendido en Docker</em></strong></p>
+
+<h3 id="qué-es-docker">¿Qué es Docker?</h3>
+<p>Permite automatizar despliegue de aplicaciones dentro de espacios virtualizados</p>
+
+<p><strong><em>Imagen</em></strong> -&gt; plantilla para la creación de contenedores</p>
+
+<p><strong><em>Contenedores</em></strong> -&gt; Espacio auto-contenido incluye necesario para la ejecución de aplicacioens</p>
+
+<p>Es similar a máquina virtual</p>
+
+<p>Imagen plano o maqueta del edificio y el contenedor es el edificio en sí</p>
+
+<p>La gestión de imágenes y contenedores las hace dockerd. Un servicio</p>
+
+<p>Usamos el cliente para conectarnos con el servicio</p>
+
+<p>Se pueden gestionar distintas redes y clusters de contenedores y volúmenes.</p>
+
+<h3 id="introducción">Introducción</h3>
+
+<p>Salomón Hykes en dotCloud -&gt;integración continúa. Lo sacó a software libre en el 2013</p>
+
+<p><em>**Proyecto insignia en Red Hub. **</em></p>
+
+<p><strong><em>Propone seguir un modelo fijo</em></strong> -&gt; la forma en la que se define</p>
+
+<p><strong><em>Integración continua</em></strong> -&gt; CI, entrega continua -&gt; CD</p>
+
+<h4 id="diferencia-entre-vm-y-contenedores">Diferencia entre VM y Contenedores</h4>
+<p>Los contenedores no tienen Hypervisor ni guest OS. El motor de docker usa los servicios del SO fuente independizando los contenedores.</p>
+
+<h3 id="instalación">Instalación</h3>
+
+<p>Versión comunitaria 
+Versión empresarial</p>
+
+<p>Documentación muy bien hecha</p>
+
+<p>En cuanto se termine tenemos el servicio y el cliente de docker en la máquina</p>
+
+<p>systemctl status docker.service  -&gt; comando gestionar servicios</p>
+
+<p>Docker -v vemos el cliente</p>
+
+<p>Docker -h muestra los comandos disponibles</p>
+
+<h3 id="servicio-dockerd">Servicio dockerd</h3>
+
+<p>systemctl -&gt; interfaz de system.d (mecanismo reciente que gestiona muchas cosas del so) argumentos. STATUS, START, STOP,RESTART</p>
+
+<p>comandos client -&gt; inspect, kill, load</p>
+
+<p>Docker ps -&gt; para ver los contenedores que se encuentran en ejecución</p>
+
+<p>El cliente se conecta con el servicio de docker</p>
+
+<h3 id="primer-contenedor">Primer contenedor</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Docker run  <span class="c"># lanza comando sobre un nuevo contenedor que se crea al instante</span>
+</code></pre></div></div>
+<p>Todos los comandos tienen el –h</p>
+
+<p>docker run hello-world -&gt; primero lo busca localmente y después si no lo encuentra lo busca y lo descarga desde docker-hub</p>
+
+<p>si no ponemos nada descargar el latest</p>
+
+<p>nifty_mclaren 
+loving_diffie &lt;3 lovid</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="c"># muestra los contenedores pero este no sale porque no es interactivo sino que se ejecuta y ya y docker ps -a si que lo muestra </span>
+
+docker run busybox <span class="c"># (otro)</span>
+docker run ubuntu
+
+</code></pre></div></div>
+
+<p>Estos comandos no hacen mucho</p>
+
+<h3 id="comandos-listado-contenedores">Comandos listado Contenedores</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="nt">-a</span> <span class="nt">-q</span> <span class="c"># (Solo muestra los identificadores)</span>
+docker ps <span class="nt">-a</span> <span class="nt">-s</span> <span class="c"># (tamaño)</span>
+
+Con la opción <span class="nt">-f</span> <span class="c"># podemos hacer un filtro por lo que queramos casi </span>
+
+docker ps <span class="nt">-f</span> <span class="nv">name</span><span class="o">=</span>_lov
+
+
+</code></pre></div></div>
+
+<h3 id="comandos-listado-imágenes">Comandos listado Imágenes</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker images <span class="nt">-a</span> <span class="c"># para verlas todas</span>
+docker images <span class="nt">-q</span> <span class="c"># para vert los indentificadores</span>
+docker images ubuntu - <span class="o">&gt;</span> filtra por ubuntu
+
+docker images <span class="nt">--no-trunk</span>  <span class="c"># para ver el hash completo</span>
+
+docker image    <span class="c"># PARA GESTIONAR IMÁGENES NO PARA LISTAR</span>
+
+
+</code></pre></div></div>
+
+<h3 id="contenedores-interactivos">Contenedores interactivos</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-it</span> <span class="c"># (interactivo y con terminal tipo tty)  </span>
+
+<span class="c"># Se ve que lo último es el comando que queremos ejecutar</span>
+ docker run <span class="nt">-it</span> fedora bash
+
+docker start <span class="nt">-i</span> <span class="c"># y con los primeros numeros del contenedor podemos interactuar con el </span>
+
+docker stop <span class="c"># para detener un contenedor</span>
+
+docker run <span class="nt">-it</span> <span class="nt">-d</span><span class="o">(</span>BACKGROUND<span class="o">)</span> <span class="nt">--name</span>  <span class="c"># para asignarle un nombre</span>
+
+docker run <span class="nt">-it</span> <span class="nt">-d</span> <span class="nt">--name</span> fedoracoretest fedora bash
+
+</code></pre></div></div>
+
+<h3 id="borrar-contenedores">Borrar contenedores</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">rm</span> &lt;identificador&gt;
+
+docker create <span class="c"># lo creamos pero no lo arrancamos</span>
+ 
+docker create <span class="nt">-it</span> ngnix <span class="c"># lo crea pero no lo arranca</span>
+
+docker container <span class="c"># varios comandos, hay algunos que tienen alias </span>
+
+docker start identificador <span class="c">#  lo lanza (SI PONE UP ESTÁ LEVANTADO)</span>
+
+docker  image save ubuntu <span class="nt">-o</span> /home/ubuntuimage.tar <span class="c"># la guarda</span>
+
+docker image <span class="nb">rm </span>hello-world:latest
+</code></pre></div></div>
+
+<h3 id="comandos-útiles">Comandos útiles</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+docker run <span class="nt">-d</span> <span class="nt">--name</span> testing nginx
+docker logs testing
+docker <span class="nb">exec</span> <span class="o">(</span>LANZA COMANDO<span class="o">)</span>
+
+docker <span class="nb">exec</span> <span class="nt">-it</span> testing bash <span class="o">(</span>Si entramos y ejecutamos cosas nos aparecen en logs<span class="o">)</span>
+
+docker top testing <span class="o">(</span>nos muestra los procesos<span class="o">)</span>
+
+docker stats para ver las estadisticas
+
+docker <span class="nb">kill</span> <span class="c"># más similar al stop pero más bruto -&gt; da un código más raro es mejor hacerlo con stop</span>
+
+</code></pre></div></div>
+:ET
