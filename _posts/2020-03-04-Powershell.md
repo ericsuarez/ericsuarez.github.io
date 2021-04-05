@@ -39,7 +39,7 @@ Get-ChildItem | Format-List * | more # (Formato lista muy interesante pantallas 
 
 Get-Command -Verb Out
 Get-Process | out-gridview #~(muy interesante permite filtros)
-Get-Process | Out-File -FilePath C:\Users\ericramos\Desktop\prueba.txt (a archivo)
+Get-Process | Out-File -FilePath C:\Users\ericramos\Desktop\prueba.txt # (a archivo)
 Out-Null # (desaparecer salida de comando)
 ```
 
