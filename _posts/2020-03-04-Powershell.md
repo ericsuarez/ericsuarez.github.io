@@ -18,8 +18,8 @@ Show-Command Get-Service # (Con formulario, muy bueno)
 
 ### Comandos prácticos formatear salida
 
-Pipe |
-Format-*
+Pipe | <br/>
+Format-* <br/>
 out-*
 
 ```powershell
@@ -45,10 +45,10 @@ Out-Null # (desaparecer salida de comando)
 
 ### Operadores
 
-Sumas,restas,etc (+,-,%,*)
-Asignación con dolar -> $var = 5
-+= Incrementar
--= Decrementar
+Sumas,restas,etc (+,-,%,*) <br/>
+Asignación con dolar -> $var = 5 <br/>
++= Incrementar <br/>
+-= Decrementar <br/>
 
 ```powershell
 # Comparar
